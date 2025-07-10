@@ -3,7 +3,7 @@ from .base import *
 DEBUG = False
 
 # TODO: Configurar el dominio al hacer deploy a production
-ALLOWED_HOSTS = ["midominio-production.com"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'midominio-production.com']
 
 # TODO: Configurar db para production
 DATABASES = {
@@ -18,7 +18,7 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.mysql',
 
         # 'NAME': os.getenv('DB_NAME'),
-        
+
         # 'USER': os.getenv('DB_USER'),
 
         # 'PASSWORD': os.getenv('DB_PASSWORD'),
