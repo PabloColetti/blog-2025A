@@ -11,7 +11,9 @@
   {% block extra_head %} {% endblock extra_head %}
 {% endblock extra_head_layout %}
 
-{% block content_layout %} 
+{% block content_layout %}
+  {% include 'components/commons/header.html' %}
   {% block content %} ⚠️ Colocar contenido {% endblock content %}
+  {% include 'components/commons/footer.html' %}
 {% endblock content_layout %}
   
