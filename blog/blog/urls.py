@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='home'),
     path('', include('apps.user.urls')),
+    path('', include('apps.post.urls')),
 ]
 
 
