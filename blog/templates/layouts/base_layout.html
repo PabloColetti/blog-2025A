@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title_layout %} {% endblock title_layout %}</title>
+    <link
+      rel="icon"
+      href="{% static 'assets/favicon.ico' %}"
+      type="image/x-icon"
+    />
+    {% block extra_head_layout %} {% endblock extra_head_layout %}
+    <script type="module" src="{% static 'js/tailwind.js' %}"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --breakpoint-xs: 30rem;
+        --color-primary: rgb(26, 227, 15);
+        --color-secondary: rgb(16, 24, 90);
+      }
+    </style>
+  </head>
+  <body class="min-w-[280px]">
+    {% block content_layout %} {% endblock content_layout %}
+  </body>
+</html>
