@@ -38,16 +38,11 @@ def create_groups_and_permissions(sender, instance, created, **kwargs):
                 name="Registered"
             )
             registered_group.permissions.add(
-                view_post_permission,
-                view_comment_permission,
-                add_comment_permission,
-                change_comment_permission,
-                delete_comment_permission,
-                # permiso para ver post
-                # permiso para ver comentarios del post
-                # permiso para crear comentarios del post
-                # permiso para actualizar de su comentario en un post
-                # permiso para borrar su comentario en un post
+                view_post_permission,  # permiso para ver post
+                view_comment_permission,  # permiso para ver comentarios del post
+                add_comment_permission,  # permiso para crear comentarios del post
+                change_comment_permission,  # permiso para actualizar de su comentario en un post
+                delete_comment_permission,  # permiso para borrar su comentario en un post
             )
 
             # Crear grupos de usuarios colaboradores
@@ -55,22 +50,14 @@ def create_groups_and_permissions(sender, instance, created, **kwargs):
                 name="Collaborators"
             )
             registered_group.permissions.add(
-                view_post_permission,
-                add_post_permission,
-                change_post_permission,
-                delete_post_permission,
-                view_comment_permission,
-                add_comment_permission,
-                change_comment_permission,
-                delete_comment_permission,
-                # permiso para ver post
-                # permiso para crear post
-                # permiso para actualizar su post
-                # permiso para borrar su post
-                # permiso para ver comentarios del post
-                # permiso para crear comentarios del post
-                # permiso para actualizar de su comentario en un post
-                # permiso para borrar su comentario en un post
+                view_post_permission,  # permiso para ver post
+                add_post_permission,  # permiso para crear post
+                change_post_permission,  # permiso para actualizar su post
+                delete_post_permission,  # permiso para borrar su post
+                view_comment_permission,  # permiso para ver comentarios del post
+                add_comment_permission,  # permiso para crear comentarios del post
+                change_comment_permission,  # permiso para actualizar de su comentario en un post
+                delete_comment_permission,  # permiso para borrar su comentario en un post
             )
 
             # Crear grupos de usuarios administradores
@@ -78,22 +65,14 @@ def create_groups_and_permissions(sender, instance, created, **kwargs):
                 name="Admins"
             )
             registered_group.permissions.add(
-                view_post_permission,
-                add_post_permission,
-                change_post_permission,
-                delete_post_permission,
-                view_comment_permission,
-                add_comment_permission,
-                change_comment_permission,
-                delete_comment_permission,
-                # permiso para ver post
-                # permiso para crear post
-                # permiso para actualizar su post
-                # permiso para borrar cualquier post
-                # permiso para ver comentarios del post
-                # permiso para crear comentarios del post
-                # permiso para actualizar de su comentario en un post
-                # permiso para borrar su comentario de cualquier post
+                view_post_permission,  # permiso para ver post
+                add_post_permission,  # permiso para crear post
+                change_post_permission,  # permiso para actualizar su post
+                delete_post_permission,  # permiso para borrar cualquier post
+                view_comment_permission,  # permiso para ver comentarios del post
+                add_comment_permission,  # permiso para crear comentarios del post
+                change_comment_permission,  # permiso para actualizar de su comentario en un post
+                delete_comment_permission,  # permiso para borrar su comentario de cualquier post
             )
 
             print("Grupos y Permisos creados exitosamente.")
