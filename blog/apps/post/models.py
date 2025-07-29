@@ -32,7 +32,7 @@ class Post(models.Model):
     @property
     def amount_comments(self):
         return self.comments.count()
-    
+
     @property
     def amount_images(self):
         return self.images.count()
@@ -55,7 +55,8 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
         if not self.images.exists():
-            PostImage.objects.created(post=self, image='post/default/post_default.png')
+            PostImage.objects.create(
+                post=self, image='post/default/post_default.png')
 
 
 class Comment(models.Model):
@@ -96,7 +97,7 @@ class PostImage(models.Model):
         Post, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to=get_image_path)
     active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f"PostImage {self.id}"
