@@ -70,8 +70,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.id
-
+        return self.content
 
 def get_image_path(instance, filename):
     post_id = instance.post.id
