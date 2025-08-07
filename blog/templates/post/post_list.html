@@ -1,0 +1,60 @@
+{% extends 'layouts/post_layout.html' %}
+
+{% block title %}Post | BLOG IA{% endblock title %}
+
+{% block content %}
+  <form method="get" class="flex flex-wrap sm:flex-nowrap gap-4 mb-6">
+    <div class="w-full">
+      {{ filter_form.search_query }}
+    </div>
+    <div class="w-full sm:w-[380px]">
+      {{ filter_form.order_by }}
+    </div>
+    <button type="submit" class="w-full sm:w-[280px] bg-blue-500 text-white p-2 rounded-lg">Buscar</button>
+  </form>
+
+  <div class="grid grid-cols-1 gap-6">
+    {% for post in object_list %}
+      <div class="bg-gray-800 text-white rounded-2xl p-6">
+        <h3 class="text-2xl uppercase font-bold">{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+        <p>Publicado por: <strong class="font-bold">{{ post.author.username }}</strong></p>
+        <p>Fecha de publicación: {{ post.created_at }}</p>
+        <p>Comentarios permitidos: {{ post.allow_comments|yesno:"Si,No" }}</p>
+        <p>Comentarios: {{ post.amount_comments }}</p>
+        <div class="flex gap-2 mt-8">
+          <a 
+            class="bg-red-500 text-white p-2 rounded-lg" 
+            href="{% url 'post:post_detail' slug=post.slug %}"
+          >Ver post</a>
+          <a 
+            class="bg-red-500 text-white p-2 rounded-lg" 
+            href="{% url 'post:post_delete' slug=post.slug %}"
+          >Eliminar post</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="mt-4">
+    {% if is_paginated %}
+      <div class="flex justify-center items-center gap-2">
+        {% if pagination.previous_page %}
+          <a href="{{ pagination.previous_page }}" class="w-16 text-xs text-center bg-blue-500 text-white p-1 rounded-md">Anterior</a>
+        {% else %}
+          <span class="w-16 text-xs text-center bg-gray-500 text-white p-1 rounded-md">Anterior</span>
+        {% endif %}
+
+        <span class="w-10 text-center text-lg font-semibold">{{ page_obj.number }}</span>
+
+        {% if pagination.next_page %}
+          <a href="{{ pagination.next_page }}" class="w-16 text-xs text-center bg-blue-500 text-white p-1 rounded-md">Siguiente</a>
+        {% else %}
+          <span class="w-16 text-xs text-center bg-gray-500 text-white p-1 rounded-md">Siguiente</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock content %}
+  
+  

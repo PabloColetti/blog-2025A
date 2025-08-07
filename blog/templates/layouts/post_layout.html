@@ -1,0 +1,22 @@
+{% extends 'layouts/base_layout.html' %}
+
+{% block title_layout %}
+  {% block title %}
+    IA 
+  {% endblock title %}
+    | Blog
+{% endblock title_layout %}
+
+{% block extra_head_layout %}
+  {% block extra_head %} {% endblock extra_head %}
+{% endblock extra_head_layout %}
+
+{% block content_layout %}
+  {% include 'components/commons/header.html' %}
+  <main class="min-h-[calc(100dvh_-_112px)] flex justify-center">
+    <div class="container mx-4 md:mx-8 lg:mx-40 bg-pink-100">
+      {% block content %} ⚠️ Manejar contenido del post {% endblock content %}
+    </div>
+  </main>
+  {% include 'components/commons/footer.html' %}
+{% endblock content_layout %}
