@@ -19,7 +19,7 @@
         <h3 class="text-2xl uppercase font-bold">{{ post.title }}</h3>
         <p>{{ post.content }}</p>
         <p>Publicado por: <strong class="font-bold">{{ post.author.username }}</strong></p>
-        <p>Fecha de publicación: {{ post.creation_date }}</p>
+        <p>Fecha de publicación: {{ post.created_at }}</p>
         <p>Comentarios permitidos: {{ post.allow_comments|yesno:"Si,No" }}</p>
         <p>Comentarios: {{ post.amount_comments }}</p>
         <div class="flex gap-2 mt-8">
