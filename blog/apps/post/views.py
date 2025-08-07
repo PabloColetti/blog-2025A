@@ -1,8 +1,9 @@
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.db.models import Count
-from apps.post.models import Post
-
-from apps.post.forms import PostFilterForm
+from apps.post.models import Post, PostImage
+from django.conf import settings
+from apps.post.forms import PostFilterForm, PostCreateForm
+from django.urls import reverse, reverse_lazy
 
 
 class PostListView(ListView):
@@ -51,12 +52,39 @@ class PostListView(ListView):
 
         return context
 
+# CRUD
+
+# CREATE
+# READ
+# UPDATE
+# DELETE
+
+
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostCreateForm
+    template_name = 'post/post_create.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        post = form.save()
+
+        images = self.request.FILES.getlist('images')
+
+        if images:
+            for image in images:
+                PostImage.objects.create(post=post, image=image)
+        else:
+            PostImage.objects.create(
+                post=post, image=settings.DEFAULT_POST_IMAGE)
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('post:post_detail', kwargs={'slug': self.object.slug})
+
 
 class PostDetailView(TemplateView):
-    template_name = 'post/post_detail.html'
-
-
-class PostCreateView(TemplateView):
     template_name = 'post/post_detail.html'
 
 
@@ -66,3 +94,15 @@ class PostUpdateView(TemplateView):
 
 class PostDeleteView(TemplateView):
     template_name = 'post/post_detail.html'
+
+
+class CommentCreateView(TemplateView):
+    pass
+
+
+class CommentUpdateView(TemplateView):
+    pass
+
+
+class CommentDeleteView(TemplateView):
+    pass
