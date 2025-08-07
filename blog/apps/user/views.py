@@ -32,5 +32,5 @@ class LoginView(LoginViewDjango):
 
 
 class LogoutView(LogoutViewDjango):
-    next_page = 'user:auth_login'
+    next_page = reverse_lazy('user:auth_login')
     
