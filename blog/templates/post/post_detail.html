@@ -4,7 +4,88 @@
 
 
 {% block content %}
-  Contenido del post
+
+{% if active_images %}
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    {% for image in active_images %}
+    <a href="{{ image.image.url }}" target="_blank">
+      <img 
+        src="{{ image.image.url }}"
+        alt="Portada del post {{ image.id }}"
+        class="w-[400px] object-cover aspect-[16/9]">
+    </a>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<h3 class="text-2xl uppercase font-bold">{{ post.title }}</h3>
+
+<p>{{ post.content }}</p>
+<p>Publicado por: <strong class="font-bold">{{ post.author.username }}</strong></p>
+<p>Fecha de publicación: {{ post.created_at }}</p>
+<p>Comentarios permitidos: {{ post.allow_comments|yesno:"Si,No" }}</p>
+
+<div class="flex mt-8 gap-4">
+  <a
+    class="bg-blue-500 text-white p-2 rounded-lg"
+    href="{% url 'post:post_update' slug=post.slug %}"
+  >Editar post</a>
+  <a
+    class="bg-red-500 text-white p-2 rounded-lg"
+    href="{% url 'post:post_delete' slug=post.slug %}"
+  >Eliminar post</a>
+</div>
+
+
+<h4 class="mt-8 mb-4">Comentarios</h4>
+{% if post.comments.count %}
+  <ul>
+    {% for comment in post.comments.all %}
+      {% if comment.id == editing_comment_id %}
+        <form method="post" action="{% url 'post:comment_update' comment.id %}" class="mb-8">
+          {% csrf_token %}
+          <p class="flex flex-col mt-4">{{ edit_comment_form.content.label_tag }} {{ edit_comment_form.content }}</p>
+          <button type="submit" class="text-blue-500">Actualizar</button>
+          <a href="{% url 'post:post_detail' post.slug %}" class="text-red-500">Cancelar</a>
+        </form>
+      {% elif comment.id == deleting_comment_id %}
+        <form method="post" action="{% url 'post:comment_delete' comment.id %}" class="mb-8">
+          {% csrf_token %}
+          <p class="flex flex-col mt-4">¿Estás seguro de que desas eliminar este comentario?</p>
+          <button type="submit" class="text-blue-500">Confirmar</button>
+          <a href="{% url 'post:post_detail' post.slug %}" class="text-red-500">Cancelar</a>
+        </form>
+      {% else %}
+        <li class="mb-8">
+          <p>{{ comment.content }}</p>
+          <small>Escrito por {{ comment.author.username }} el {{ comment.created_at }}</small>
+          
+          {% if comment.author == user %}
+            <a href="?edit_comment={{ comment.id }}" class="text-blue-500">Editar</a>
+            <a href="?delete_comment={{ comment.id }}" class="text-red-500">Eliminar</a>
+          {% elif user.is_collaborator and post.author == user and not comment.author.is_admin and not comment.author.is_superuser or user.is_admin or user.is_superuser or user.is_staff %}
+            <a href="?delete_comment={{ comment.id }}" class="text-red-500">Eliminar</a>
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <h4>Agregar un comentario</h4>
+  <form method="post" action="{% url 'post:comment_create' post.slug %}">
+    {% csrf_token %}
+    <p class="flex flex-col mt-4 mb-8">{{ add_comment_form.content.label_tag }} {{ add_comment_form.content }}</p>
+    <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Agregar comentario</button>
+  </form>
+{% else %}
+  <p>
+    <a href="{% url 'user:auth_login' %}?next={{ request.path }}" class="hover:text-blue-500">Inicia sesión</a>
+    para agregar un comentario.
+  </p>
+{% endif %}
+
 {% endblock content %}
   
   
