@@ -1,0 +1,25 @@
+{% extends 'layouts/post_layout.html' %}
+
+{% block title %} Crear Post {% endblock title %}
+
+
+{% block content %}
+  <h1>Crear nuevo post </h1>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="flex flex-col gap-4">
+      <p>Titulo: {{ form.title }}</p>
+      <p>Contenido: {{ form.content }}</p>
+      <p>Permitir comentarios? {{ form.allow_comments }}</p>
+      <p>
+        <input type="file" name="images" multiple>
+      </p>
+    </div>
+
+    <button type="submit">
+      Crear Post
+    </button>  
+  </form>
+{% endblock content %}
+  
