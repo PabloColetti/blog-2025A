@@ -3,6 +3,22 @@
 - Fulanito
 - Menganito
 
+# USUARIOS DE PRUEBA
+
+REGISTRADO
+email: registrado@test.com
+contraseña: facil123
+
+COLABORADOR
+email: colaborador@test.com
+contraseña: facil123
+
+ADMIN
+email: admin@test.com
+contraseña: facil123
+
+## DEJAMOS 10 Post de prueba
+
 # Proyecto creado con Python y Django
 
 # Estructura del proyecto:
